@@ -1,0 +1,28 @@
+.search {
+    position: relative;
+    display: flex;
+}
+
+.search input {
+    font-size: 16px;
+    width: 100%;
+    padding: 8px 16px 8px 40px;
+    border: 1px solid var(--black);
+    border-radius: 4px;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.search::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    background: url(/static/search.svg) no-repeat;
+}
