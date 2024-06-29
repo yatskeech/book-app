@@ -1,3 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body {
+    color: var(--black);
     font-family: 'Open Sans', sans-serif;
+}
+
+:root {
+    --black: #121212;
+    --white: #fafafa;
+    --gray: #dedede;
+}
+
+#root {
+    max-width: 960px;
+    padding: 0 20px;
+    margin: 0 auto;
 }
