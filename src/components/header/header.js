@@ -15,10 +15,10 @@ export class Header extends DivComponent {
 			</a>
 			<nav class='header__nav'>
 				<ul class='header__list'>
-					<li class='header__item search'>
+					<li class='header__item header__search'>
 						<a href='#' class='header__link'>Book Search</a>
 					</li>
-					<li class='header__item favorites'>
+					<li class='header__item header__favorites'>
 						<a href='#' class='header__link'>Favorites</a>
 						<span class='header__counter'>${this.appState.favorites.length}</span>
 					</li>

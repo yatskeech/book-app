@@ -36,21 +36,22 @@
 
 .header__link::before {
     content: '';
+    flex-grow: 0;
     width: 20px;
     height: 20px;
     margin-right: 4px;
     transition: .4s;
 }
 
-.search .header__link::before {
+.header__search .header__link::before {
     background: url("/static/search.svg");
 }
 
-.favorites .header__link::before {
+.header__favorites .header__link::before {
     background: url("/static/favorites.svg");
 }
 
-.header__item.favorites {
+.header__item.header__favorites {
     padding-right: 48px;
 }
 
