@@ -1,0 +1,103 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--black);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card__img-box {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 280px;
+    background-color: var(--gray);
+}
+
+.card__img-box::before {
+    content: 'no cover';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: var(--black);
+    opacity: 0.5;
+    transform: translate(-50%, -50%);
+}
+
+.card__img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    z-index: 10;
+}
+
+.card__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    color: var(--white);
+    padding: 12px;
+    background-color: var(--black);
+}
+
+.card__content-info {
+    margin-bottom: 16px;
+}
+
+.card__info-tag {
+    font-size: 12px;
+}
+
+.card__info-title {
+    font-size: 18px;
+}
+
+.card__info-author {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    margin-top: auto;
+    border: 1px solid var(--white);
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.card__btn_favorite {
+    background-color: var(--white);
+}
+
+.card__btn path {
+    stroke: var(--white);
+    transition: .4s;
+}
+
+.card__btn_favorite path {
+    stroke: var(--black);
+}
+
+.card__btn:hover {
+    background-color: var(--white);
+}
+
+.card__btn:hover path {
+    stroke: var(--black);
+}
+
+
+.card__btn.card__btn_favorite:hover {
+    background-color: var(--black);
+}
+
+.card__btn.card__btn_favorite:hover path {
+    stroke: var(--white);
+}
