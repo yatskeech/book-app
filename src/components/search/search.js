@@ -9,7 +9,23 @@ export class Search extends DivComponent {
 	}
 
 	search() {
-		this.state.searchQuery = this.element.querySelector('input').value;
+		const searchValue = this.element.querySelector('input').value;
+		this.state.recommended = !searchValue;
+		this.state.searchQuery = this.state.recommended ? this.#randomSearch() : searchValue;
+	}
+
+	recommend() {
+		if (!this.state.searchQuery && !this.state.recommended) {
+			this.search();
+		}
+	}
+
+	#randomSearch() {
+		const symbols = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		const getRandomIndex = () => {
+			return Math.floor(Math.random() * symbols.length);
+		};
+		return Array(2).fill('').map(() => symbols[getRandomIndex()]).join('');
 	}
 
 	render() {
@@ -18,11 +34,13 @@ export class Search extends DivComponent {
 			<input 
 				type='text' 
 				placeholder='Find a book or author....' 
-				value='${this.state.searchQuery ?? ''}'
 			/>
 		`;
+		const searchDebounce = debounce(this.search.bind(this), 500);
 		this.element.querySelector('input')
-			.addEventListener('input', debounce(this.search.bind(this), 1000));
+			.addEventListener('input', searchDebounce);
+		this.recommend();
+		this.element.querySelector('input').value = this.state.recommended ? '' : this.state.searchQuery;
 		return this.element;
 	}
 }
