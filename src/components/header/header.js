@@ -10,7 +10,7 @@ export class Header extends DivComponent {
 	render() {
 		this.element.classList.add('header');
 		this.element.innerHTML = `
-			<a href='header__logo'>
+			<a href='#'>
 				<img src='/static/logo.svg' alt='logo'/>
 			</a>
 			<nav class='header__nav'>
@@ -19,7 +19,7 @@ export class Header extends DivComponent {
 						<a href='#' class='header__link'>Book Search</a>
 					</li>
 					<li class='header__item header__favorites'>
-						<a href='#' class='header__link'>Favorites</a>
+						<a href='#favorites' class='header__link'>Favorites</a>
 						<span class='header__counter'>${this.appState.favorites.length}</span>
 					</li>
 				</ul>
