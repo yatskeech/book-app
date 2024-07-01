@@ -92,12 +92,3 @@
 .card__btn:hover path {
     stroke: var(--black);
 }
-
-
-.card__btn.card__btn_favorite:hover {
-    background-color: var(--black);
-}
-
-.card__btn.card__btn_favorite:hover path {
-    stroke: var(--white);
-}
