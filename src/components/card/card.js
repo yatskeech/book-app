@@ -9,13 +9,7 @@ export class Card extends DivComponent {
 	}
 
 	render() {
-		const shortString = (string, length) => {
-			if (string.length < length) {
-				return string;
-			}
-
-			return string.slice(0, length) + '...';
-		}
+		const shortString = (string, length) => string.length < length ? string : string.slice(0, length) + '...';
 		const isFavorite = this.appState.favorites.find(x => x.key === this.cardState.key);
 		this.element.classList.add('card');
 		this.element.innerHTML = `
