@@ -42,6 +42,7 @@
 }
 
 .card__content-info {
+    color: var(--white);
     margin-bottom: 16px;
 }
 
@@ -69,6 +70,7 @@
     border-radius: 4px;
     background-color: transparent;
     cursor: pointer;
+    z-index: 10;
     transition: .4s;
 }
 
