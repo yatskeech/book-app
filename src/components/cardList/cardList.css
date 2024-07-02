@@ -1,25 +1,16 @@
 .card-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
     width: 100%;
     min-height: 400px;
     height: 100%;
 }
 
-.card-list > h1 {
-    margin-bottom: 8px;
-}
-
-.card-list__loading {
-    width: 100%;
-    flex-grow: 1;
+.card-list__info {
+    grid-column: 1/-1;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.card-list__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    opacity: .6;
 }
