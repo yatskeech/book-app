@@ -28,7 +28,7 @@ export class FavoritesView extends View {
 		this.appRoot.append(new Header(this.appState).render());
 		this.appRoot.append(new Title('Favorite books').render());
 		this.appRoot.append(new CardList(this.appState,
-			{ data: { docs: this.appState.favorites } },
+			{ data: { docs: [...this.appState.favorites].reverse() } },
 		).render());
 	}
 }
