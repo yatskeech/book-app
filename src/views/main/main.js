@@ -25,7 +25,7 @@ export class MainView extends View {
 
 	#appStateHook(path) {
 		if (path === 'favorites') {
-			this.render();
+			this.rerender();
 		}
 	}
 
@@ -51,7 +51,7 @@ export class MainView extends View {
 		}
 
 		if (path === 'loading') {
-			this.render();
+			this.rerender();
 		}
 	}
 
@@ -105,13 +105,31 @@ export class MainView extends View {
 		onChange.unsubscribe(this.appState);
 	}
 
+	rerender() {
+		this.header.remove();
+		this.title.remove();
+		this.cardList.remove();
+
+		this.header = new Header(this.appState).render();
+		this.title = new Title(this.#getTitle()).render();
+		this.cardList = new CardList(this.appState, this.state).render();
+
+		this.appRoot.prepend(this.header);
+		this.appRoot.append(this.title);
+		this.appRoot.append(this.cardList);
+	}
+
 	render() {
 		this.appRoot.innerHTML = '';
 
-		this.appRoot.append(new Header(this.appState).render());
+		this.header = new Header(this.appState).render();
+		this.title = new Title(this.#getTitle()).render();
+		this.cardList = new CardList(this.appState, this.state).render();
+
+		this.appRoot.append(this.header);
 		this.appRoot.append(new Search(this.state).render());
-		this.appRoot.append(new Title(this.#getTitle()).render());
-		this.appRoot.append(new CardList(this.appState, this.state).render());
+		this.appRoot.append(this.title);
+		this.appRoot.append(this.cardList);
 
 		if (!this.state.searchQuery && this.state.recommended) {
 			this.#randomSearch();
