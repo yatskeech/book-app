@@ -5,6 +5,7 @@
     width: 100%;
     min-height: 400px;
     height: 100%;
+    margin-bottom: 16px;
 }
 
 .card-list__info {

@@ -25,5 +25,5 @@
     width: 20px;
     height: 20px;
     transform: translateY(-50%);
-    background: url(/static/search.svg) no-repeat;
+    background: url(/static/icons/search.svg) no-repeat;
 }

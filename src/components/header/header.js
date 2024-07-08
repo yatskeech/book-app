@@ -11,7 +11,7 @@ export class Header extends DivComponent {
 		this.element.classList.add('header');
 		this.element.innerHTML = `
 			<a href='#'>
-				<img src='/static/logo.svg' alt='logo'/>
+				<img src='static/icons/logo.svg' alt='logo'/>
 			</a>
 			<nav class='header__nav'>
 				<ul class='header__list'>

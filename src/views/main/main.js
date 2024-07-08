@@ -4,21 +4,20 @@ import { Header } from '../../components/header/header.js';
 import { Search } from '../../components/search/search.js';
 import { CardList } from '../../components/cardList/cardList.js';
 import { Title } from '../../components/title/title.js';
+import { Pagination } from '../../components/pagination/pagination';
 
 export class MainView extends View {
 	state = {
 		data: {},
 		loading: false,
-		recommended: true,
 		searchQuery: '',
 		limit: 32,
-		offset: 0,
+		page: 1,
 	};
 
 	constructor(appState) {
 		super();
-		this.appState = appState;
-		this.appState = onChange(this.appState, this.#appStateHook.bind(this));
+		this.appState = onChange(appState, this.#appStateHook.bind(this));
 		this.state = onChange(this.state, this.#stateHook.bind(this));
 		this.setTitle('Book Search');
 	}
@@ -30,23 +29,27 @@ export class MainView extends View {
 	}
 
 	async #stateHook(path) {
-		if (path === 'searchQuery') {
+		if (path === 'searchQuery' || path === 'page') {
 			if (this.state.loading) {
 				this.controller.abort();
+			}
+
+			if (path === 'searchQuery') {
+				this.state.page = 1;
 			}
 
 			this.state.loading = true;
 
 			try {
 				this.state.data = await this.#loadList(
-					this.state.searchQuery,
-					this.state.offset,
+					this.state.searchQuery || this.#randomSearch(),
 					this.state.limit,
+					this.state.page,
 				);
 
 				this.state.loading = false;
-			} catch (err) {
-				console.error(err);
+			} catch (e) {
+				console.error(e);
 			}
 		}
 
@@ -55,20 +58,24 @@ export class MainView extends View {
 		}
 	}
 
-	async #loadList(query, offset, limit) {
+	async #loadList(query, limit, page) {
 		const params = new URLSearchParams({
 			q: query,
-			offset: offset,
 			limit: limit,
+			page: page,
 		});
 
 		this.controller = new AbortController();
-		const request = await fetch(
-			'https://openlibrary.org/search.json?' + params,
-			{ signal: this.controller.signal },
-		);
-
-		return request.json();
+		try {
+			const request = await fetch(
+				'https://openlibrary.org/search.json?' + params,
+				{ signal: this.controller.signal },
+			);
+			return request.json();
+		} catch (e) {
+			console.error(e);
+			return {};
+		}
 	}
 
 	#randomSearch() {
@@ -76,20 +83,26 @@ export class MainView extends View {
 		const getRandomIndex = () => {
 			return Math.floor(Math.random() * symbols.length);
 		};
-		this.state.searchQuery = Array(2)
+		return Array(2)
 			.fill('')
 			.map(() => symbols[getRandomIndex()])
 			.join('');
 	}
 
 	#getTitle() {
-		let textTitle = `Books found – ${this.state.data.numFound}`;
+		let textTitle = `Error`;
 
-		if (this.state.recommended) {
+		const numFound = this.state.data.numFound;
+
+		if (numFound) {
+			textTitle = `Books found – ${numFound}`;
+		}
+
+		if (!this.state.searchQuery) {
 			textTitle = 'Recommended books';
 		}
 
-		if (this.state.data.numFound === 0) {
+		if (numFound === 0) {
 			textTitle = 'Nothing found';
 		}
 
@@ -109,6 +122,7 @@ export class MainView extends View {
 		this.header.remove();
 		this.title.remove();
 		this.cardList.remove();
+		this.pagination?.remove();
 
 		this.header = new Header(this.appState).render();
 		this.title = new Title(this.#getTitle()).render();
@@ -117,6 +131,11 @@ export class MainView extends View {
 		this.appRoot.prepend(this.header);
 		this.appRoot.append(this.title);
 		this.appRoot.append(this.cardList);
+
+		if (this.state.searchQuery && !this.state.loading) {
+			this.pagination = new Pagination(this.state).render();
+			this.appRoot.append(this.pagination);
+		}
 	}
 
 	render() {
@@ -131,8 +150,6 @@ export class MainView extends View {
 		this.appRoot.append(this.title);
 		this.appRoot.append(this.cardList);
 
-		if (!this.state.searchQuery && this.state.recommended) {
-			this.#randomSearch();
-		}
+		this.#stateHook('searchQuery');
 	}
 }

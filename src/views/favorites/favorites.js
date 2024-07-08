@@ -7,8 +7,7 @@ import onChange from 'on-change';
 export class FavoritesView extends View {
 	constructor(appState) {
 		super();
-		this.appState = appState;
-		this.appState = onChange(this.appState, this.#appStateHook.bind(this));
+		this.appState = onChange(appState, this.#appStateHook.bind(this));
 		this.setTitle('Favorites');
 	}
 

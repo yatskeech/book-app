@@ -44,11 +44,11 @@
 }
 
 .header__search .header__link::before {
-    background: url("/static/search.svg");
+    background: url("/static/icons/search.svg");
 }
 
 .header__favorites .header__link::before {
-    background: url("/static/favorites.svg");
+    background: url("/static/icons/favorites.svg");
 }
 
 .header__item.header__favorites {
