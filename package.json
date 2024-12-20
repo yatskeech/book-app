@@ -16,10 +16,12 @@
     "globals": "^15.6.0",
     "live-server": "^1.2.2",
     "rollup": "^4.18.0",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-import-css": "^3.5.0",
     "rollup-plugin-postcss": "^4.0.2"
   },
   "dependencies": {
-    "on-change": "^5.0.1"
+    "on-change": "^5.0.1",
+    "postcss-url": "^10.1.3"
   }
 }
