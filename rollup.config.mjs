@@ -1,4 +1,5 @@
-import css from 'rollup-plugin-import-css';
+import postcss from 'rollup-plugin-postcss';
+import path from 'path';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
@@ -8,8 +9,10 @@ export default {
 		format: 'iife',
 	},
 	plugins: [
-		css({
-			output: 'style.css',
+		postcss({
+			extract: path.resolve('dist/style.css'),
+			modules: false,
+			minimize: true,
 		}),
 		nodeResolve(),
 	],
